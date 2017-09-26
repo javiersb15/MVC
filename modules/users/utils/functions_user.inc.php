@@ -15,9 +15,9 @@ function validate_user($value) {
             'filter' => FILTER_VALIDATE_REGEXP,
             'options' => array('regexp' => '/^(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d$/')
         ),
-        'address' => array(
+        'height' => array(
             'filter' => FILTER_VALIDATE_REGEXP,
-            'options' => array('regexp' => '/^[a-z0-9- -.]+$/i')
+            'options' => array('regexp' => '/^-?[0-9]+([,\.][0-9]*)?$/')
         ),
         'user' => array(
             'filter' => FILTER_VALIDATE_REGEXP,
@@ -83,8 +83,8 @@ function validate_user($value) {
             $valido = false;
         }
 
-        if (!$resultado['address']) {
-            $error['address'] = "Address don't have  symbols.";
+        if (!$resultado['height']) {
+            $error['height'] = "Height don't have symbols.";
             $valido = false;
         }
 

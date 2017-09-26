@@ -37,9 +37,9 @@
                     </div>
                     <br />
                     <div class="form-group">
-                        <label>Address*</label><br />
-                        <input id="address" type="text" name="address" placeholder="Street nXX ptaX" required="required" value="" class="form-control">
-                        <div id="e_address"></div>
+                        <label>Height*</label><br />
+                        <input id="height" type="text" name="height" placeholder="Height" required="required" value="" class="form-control">
+                        <div id="e_height"></div>
                     </div>
                     <br />
 

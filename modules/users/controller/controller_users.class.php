@@ -31,7 +31,7 @@ function alta_users() {
             'name' => ucfirst($result['datos']['name']),
             'last_name' => ucfirst($result['datos']['last_name']),
             'birth_date' => $result['datos']['birth_date'],
-            'address' => $result['datos']['address'],
+            'height' => $result['datos']['height'],
             'user' => $result['datos']['user'],
             'pass' => $result['datos']['pass'],
             'email' => $result['datos']['email'],

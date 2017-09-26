@@ -42,9 +42,9 @@ function pintar_user(data) {
     date_birthday.innerHTML = "date_birthday = ";
     date_birthday.innerHTML += data.user.birth_date;
 
-    var address = document.createElement("div");
-    address.innerHTML = "address = ";
-    address.innerHTML += data.user.address;
+    var height = document.createElement("div");
+    height.innerHTML = "height = ";
+    height.innerHTML += data.user.height;
 
     var user = document.createElement("div");
     user.innerHTML = "user = ";
@@ -83,7 +83,7 @@ function pintar_user(data) {
     parrafo.appendChild(name);
     parrafo.appendChild(last_name);
     parrafo.appendChild(date_birthday);
-    parrafo.appendChild(address);
+    parrafo.appendChild(height);
     parrafo.appendChild(team);
     parrafo.appendChild(user);
     parrafo.appendChild(pass);

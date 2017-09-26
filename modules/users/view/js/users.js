@@ -42,17 +42,17 @@ jQuery.fn.fill_or_clean = function () {
                 $("#birth_date").val("Introduce date of birth");
             }
         });
-        if ($("#address").val() == "") {
-            $("#address").val( "Introduce address");
-            $("#address").focus(function () {
-                if ($("#address").val() == "Introduce address") {
-                    $("#address").val( "");
+        if ($("#height").val() == "") {
+            $("#height").val( "Introduce height");
+            $("#height").focus(function () {
+                if ($("#height").val() == "Introduce height") {
+                    $("#height").val( "");
                 }
             });
         }
-        $("#address").blur(function () {
-            if ($("#address").val() == "") {
-                $("#address").val( "Introduce address");
+        $("#height").blur(function () {
+            if ($("#height").val() == "") {
+                $("#height").val( "Introduce height");
             }
         });
         if ($("#user").val() == "") {
@@ -123,7 +123,7 @@ $(document).ready(function () {
                     $("#name").val('');
                     $("#last_name").val('');
                     $("#birth_date").val('');
-                    $("#address").val('');
+                    $("#height").val('');
                     $("#user").val('');
                     $("#pass").val('');
                     $("#email").val('');
@@ -140,7 +140,7 @@ $(document).ready(function () {
                     $("#name").val( response.user.name);
                     $("#last_name").val( response.user.last_name);
                     $("#birth_date").val( response.user.birth_date);
-                    $("#address").val( response.user.address);
+                    $("#height").val( response.user.height);
                     $("#user").val( response.user.user);
                     $("#pass").val( response.user.pass);
                     $("#email").val( response.user.email);
@@ -218,7 +218,7 @@ $(document).ready(function () {
     //Utilizamos las expresiones regulares para las funciones de  fadeout
     var email_reg = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
     var date_reg = /^(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d$/;
-    var address_reg = /^[a-z0-9- -.]+$/i;
+    var height_reg = /^[0-9]+([,][0-9]+)?$/;
     var pass_reg = /^[0-9a-zA-Z]{6,32}$/;
     var string_reg = /^[A-Za-z]{2,30}$/;
     var usr_reg = /^[0-9a-zA-Z]{2,20}$/;
@@ -252,8 +252,8 @@ $(document).ready(function () {
         }
     });
 
-    $("#address").keyup(function () {
-        if ($(this).val() != "" && address_reg.test($(this).val())) {
+    $("#height").keyup(function () {
+        if ($(this).val() != "" && height_reg.test($(this).val())) {
             $(".error").fadeOut();
             return false;
         }
@@ -273,7 +273,7 @@ function validate_user() {
     var name = document.getElementById('name').value;
     var last_name = document.getElementById('last_name').value;
     var birth_date = document.getElementById('birth_date').value;
-    var address = document.getElementById('address').value;
+    var height = document.getElementById('height').value;
     var team = document.getElementById('team').value;
     var user = document.getElementById('user').value;
     var pass = document.getElementById('pass').value;
@@ -291,7 +291,7 @@ function validate_user() {
     //Utilizamos las expresiones regulares para la validación de errores JS
     var email_reg = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
     var date_reg = /^(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d$/;
-    var address_reg = /^[a-z0-9- -.]+$/i;
+    var height_reg = /^[0-9]+([,][0-9]+)?$/;
     var pass_reg = /^[0-9a-zA-Z]{6,32}$/;
     var string_reg = /^[A-Za-z]{2,30}$/;
     var usr_reg = /^[0-9a-zA-Z]{2,20}$/;
@@ -328,12 +328,12 @@ function validate_user() {
         return false;
     }
 
-    if ($("#address").val() == "" || $("#address").val() == "Introduce address") {
-        $("#address").focus().after("<span class='error'>Introduce address</span>");
+    if ($("#height").val() == "" || $("#height").val() == "Introduce height") {
+        $("#height").focus().after("<span class='error'>Introduce height</span>");
         result = false;
         return false;
-    } else if (!address_reg.test($("#address").val())) {
-        $("#address").focus().after("<span class='error'>Address don't have  symbols.</span>");
+    } else if (!height_reg.test($("#height").val())) {
+        $("#height").focus().after("<span class='error'>Height don't have  symbols.</span>");
         result = false;
         return false;
     }
@@ -371,7 +371,7 @@ function validate_user() {
     //Si ha ido todo bien, se envian los datos al servidor
 
     if (result) {
-        var data = {"name": name, "last_name": last_name, "birth_date": birth_date, "address": address, "team": team, "user": user, "pass": pass,
+        var data = {"name": name, "last_name": last_name, "birth_date": birth_date, "height": height, "team": team, "user": user, "pass": pass,
             "email": email, "hobbies": hobbies};
 
         var data_users_JSON = JSON.stringify(data);
@@ -414,8 +414,8 @@ function validate_user() {
                             if (xhr.responseJSON.error.birth_date !== undefined && xhr.responseJSON.error.birth_date !== null) {
                                 $("#birth_date").focus().after("<span class='error'>" + xhr.responseJSON.error.birth_date + "</span>");
                             }
-                            if (xhr.responseJSON.error.address !== undefined && xhr.responseJSON.error.address !== null) {
-                                $("#address").focus().after("<span class='error'>" + xhr.responseJSON.error.address + "</span>");
+                            if (xhr.responseJSON.error.height !== undefined && xhr.responseJSON.error.height !== null) {
+                                $("#height").focus().after("<span class='error'>" + xhr.responseJSON.error.height + "</span>");
                             }
                             if (xhr.responseJSON.error.user !== undefined && xhr.responseJSON.error.user !== null) {
                                 $("#user").focus().after("<span class='error'>" + xhr.responseJSON.error.user + "</span>");
