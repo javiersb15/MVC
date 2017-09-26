@@ -116,7 +116,7 @@ $(document).ready(function () {
     });
 
     //Control de seguridad para evitar que al volver atrás de la pantalla results a create, no nos imprima los datos
-    $.get("/project/modules/users/controller/controller_users.class.php?load_data=true",
+    $.get("/servidor/project/modules/users/controller/controller_users.class.php?load_data=true",
             function (response) {
                 //alert(response.user);
                 if (response.user === "") {
@@ -158,7 +158,7 @@ $(document).ready(function () {
 
     //Dropzone function //////////////////////////////////
     $("#dropzone").dropzone({
-        url: "/project/modules/users/controller/controller_users.class.php?upload=true",
+        url: "/servidor/project/modules/users/controller/controller_users.class.php?upload=true",
         addRemoveLinks: true,
         maxFileSize: 1000,
         dictResponseError: "Ha ocurrido un error en el server",
@@ -185,7 +185,7 @@ $(document).ready(function () {
             var name = file.name;
             $.ajax({
                 type: "POST",
-                url: "/project/modules/users/controller/controller_users.class.php?delete=true",
+                url: "/servidor/project/modules/users/controller/controller_users.class.php?delete=true",
                 data: "filename=" + name,
                 success: function (data) {
                     $("#progress").hide();
@@ -376,7 +376,7 @@ function validate_user() {
 
         var data_users_JSON = JSON.stringify(data);
 
-    $.post('/project/modules/users/controller/controller_users.class.php', {alta_users_json: data_users_JSON},
+    $.post('/servidor/project/modules/users/controller/controller_users.class.php', {alta_users_json: data_users_JSON},
             function (response) {
                 console.log(typeof(response));
                 if (response.success) {

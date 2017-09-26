@@ -1,8 +1,8 @@
 <?php
 session_start();
 //include  with absolute route
-include ($_SERVER['DOCUMENT_ROOT'] . "/project/modules/users/utils/functions_user.inc.php");
-include ($_SERVER['DOCUMENT_ROOT'] . "/project/utils/upload.php");
+include ($_SERVER['DOCUMENT_ROOT'] . "/servidor/project/modules/users/utils/functions_user.inc.php");
+include ($_SERVER['DOCUMENT_ROOT'] . "/servidor/project/utils/upload.php");
 
 //////////////////////////////////////////////////////////////// upload
 if ((isset($_GET["upload"])) && ($_GET["upload"] == true)) {
@@ -22,7 +22,7 @@ function alta_users() {
     $result = validate_user($usersJSON);
 
     if (empty($_SESSION['result_avatar'])) {
-        $_SESSION['result_avatar'] = array('resultado' => true, 'error' => "", 'datos' => '/project/media/default-avatar.png');
+        $_SESSION['result_avatar'] = array('resultado' => true, 'error' => "", 'datos' => 'project/media/default-avatar.png');
     }
     $result_avatar = $_SESSION['result_avatar'];
 

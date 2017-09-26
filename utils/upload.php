@@ -79,7 +79,7 @@ function upload_files() {
             $nombreFichero = $idUnico."-".$_FILES['file']['name'];
             $copiarFichero = true;
             // I use absolute route to move_uploaded_file because this happens when i run ajax
-            $upfile = $_SERVER['DOCUMENT_ROOT'].'/project/media/'.$nombreFichero;
+            $upfile = $_SERVER['DOCUMENT_ROOT'].'/servidor/project/media/'.$nombreFichero;
         }else{
                 $error .=   "Invalid File...";
         }
@@ -97,7 +97,7 @@ function upload_files() {
             return $return=array('resultado'=>true , 'error'=>$error,'datos'=>$upfile);
         }
         if($_FILES['file']['error'] !== 0) { //Assignarem a l'us default-avatar
-            $upfile = '/project/media/default-avatar.png';
+            $upfile = '/servidor/project/media/default-avatar.png';
             return $return=array('resultado'=>true,'error'=>$error,'datos'=>$upfile);
         }
     }else{
@@ -107,8 +107,8 @@ function upload_files() {
 
 function remove_files(){
 	$name = $_POST["filename"];
-	if(file_exists($_SERVER['DOCUMENT_ROOT'].'/project/media/'.$name)){
-		unlink($_SERVER['DOCUMENT_ROOT'].'/project/media/'.$name);
+	if(file_exists($_SERVER['DOCUMENT_ROOT'].'/servidor/project/media/'.$name)){
+		unlink($_SERVER['DOCUMENT_ROOT'].'/servidor/project/media/'.$name);
 		return true;
 	}else{
 		return false;

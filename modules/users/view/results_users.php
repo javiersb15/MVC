@@ -7,7 +7,7 @@
         <div class="row contact-wrap">
             <div class="status alert alert-success" style="display: none"></div>
             <div id="content"></div>
-            <script type="text/javascript" src="/project/modules/users/view/js/list_user.js" ></script>
+            <script type="text/javascript" src="/servidor/project/modules/users/view/js/list_user.js" ></script>
         </div><!--/.row-->
     </div><!--/.container-->
 </section><!--/#contact-page-->

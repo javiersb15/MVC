@@ -2,7 +2,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.css">
 <!-- Script with absolute route -->
-<script type="text/javascript" src="/project/modules/users/view/js/users.js" ></script>
+<script type="text/javascript" src="/servidor/project/modules/users/view/js/users.js" ></script>
 <section id="contact-page">
     <div class="container">
         <div class="center">

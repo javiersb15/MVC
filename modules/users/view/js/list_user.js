@@ -1,5 +1,5 @@
 function load_users() {
-    var jqxhr = $.get("/project/modules/users/controller/controller_users.class.php?load=true", function (data) {
+    var jqxhr = $.get("/servidor/project/modules/users/controller/controller_users.class.php?load=true", function (data) {
         var json = JSON.parse(data);
         console.log(json);
         pintar_user(json);
