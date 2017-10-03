@@ -13,7 +13,7 @@
                             <ul class="social-share">
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li> 
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                                 <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
                                 <li><a href="#"><i class="fa fa-skype"></i></a></li>
                             </ul>
@@ -40,7 +40,7 @@
                     </button>
                     <a class="navbar-brand" href="index.php?module=homepage"><img src="view/img/logo.png" alt="logo"></a>
                 </div>
-				
+
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li class="
@@ -62,11 +62,11 @@
                                  echo 'deactivate';
                         ?>"><a href="index.php?module=services">Services</a></li>
                         <li class="
-                        <?php if($_GET['module'] === 'users')
+                        <?php if($_GET['module'] === 'players')
                                  echo'active';
                               else
                                  echo 'deactivate';
-                        ?>"><a href="index.php?module=users&view=create_users">Users</a></li>
+                        ?>"><a href="index.php?module=players&view=create_players">Players</a></li>
                         <li class="
                         <?php if($_GET['module'] === 'portfolio')
                                  echo'active';
@@ -107,16 +107,16 @@
                                  echo'active';
                               else
                                  echo 'deactivate';
-                        ?>"><a href="index.php?module=blog">Blog</a></li> 
+                        ?>"><a href="index.php?module=blog">Blog</a></li>
                         <li class="
                         <?php if($_GET['module'] === 'contact-us')
                                  echo'active';
                               else
                                  echo 'deactivate';
-                        ?>"><a href="index.php?module=contact-us">Contact</a></li>                        
+                        ?>"><a href="index.php?module=contact-us">Contact</a></li>
                     </ul>
                 </div>
             </div><!--/.container-->
         </nav><!--/nav-->
-		
+
     </header><!--/header-->

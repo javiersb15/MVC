@@ -2,19 +2,19 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.css">
 <!-- Script with absolute route -->
-<script type="text/javascript" src="/servidor/project/modules/users/view/js/users.js" ></script>
+<script type="text/javascript" src="/servidor/project/modules/players/view/js/players.js" ></script>
 <section id="contact-page">
     <div class="container">
         <div class="center">
-            <h2>ADD USER    </h2>
+            <h2>ADD PLAYER</h2>
             <p class="lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
         <div class="row contact-wrap">
             <div class="status alert alert-success" style="display: none"></div>
 
-            <form id="form_user" name="form_user"><!---->
+            <form id="form_players" name="form_players"><!---->
                 <div class ="form-group">
-                    <input type="hidden" name="alta_users" value="alta_users">
+                    <input type="hidden" name="alta_players" value="alta_players">
                 </div>
                 <div class="col-sm-5 col-sm-offset-1">
                     <div class="form-group">
@@ -42,7 +42,12 @@
                         <div id="e_height"></div>
                     </div>
                     <br />
-
+                    <div class="form-group">
+                        <label>Weight*</label><br />
+                        <input id="weight" type="text" name="weight" placeholder="Weight" required="required" value="" class="form-control">
+                        <div id="e_weight"></div>
+                    </div>
+                    <br />
                     <div class="form-group">
                         <label>Select team</label><br />
                         <select name="team" id="team">
@@ -77,13 +82,13 @@
                     </div>
                     <br />
                     <div class="form-group">
-                        <label>Hobbies  *</label><br>
+                        <label>Position  *</label><br>
 
-                        Football  <input type="checkbox" name="hobbies[]" class="messageCheckbox" value="Football">
-                        Basketball  <input type="checkbox" name="hobbies[]" class="messageCheckbox" value="Basketball">
-                        Tennis  <input type="checkbox" name="hobbies[]" class="messageCheckbox" value="Tennis">
-                        Karate   <input type="checkbox" name="hobbies[]" class="messageCheckbox" value="Karate">
-                        <div id="e_hobbies"></div>
+                        Goalkeeper <input type="checkbox" name="position[]" class="messageCheckbox" value="Goalkeeper">
+                        Defender  <input type="checkbox" name="position[]" class="messageCheckbox" value="Defender">
+                        Midfielder  <input type="checkbox" name="position[]" class="messageCheckbox" value="Midfielder">
+                        Forward   <input type="checkbox" name="position[]" class="messageCheckbox" value="Forward">
+                        <div id="e_position"></div>
                     </div>
                     <br />
                     <br />
@@ -102,7 +107,7 @@
                     <br/>
 
                     <div class="form-group">
-                        <button type="button" id="submit_user" name="submit_user" class="btn btn-primary btn-lg" value="submit">Submit Message</button>
+                        <button type="button" id="submit_players" name="submit_players" class="btn btn-primary btn-lg" value="submit">Submit Form</button>
                     </div>
                 </div>
             </form>

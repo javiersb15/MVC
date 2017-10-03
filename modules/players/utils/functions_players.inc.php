@@ -1,5 +1,5 @@
 <?php
-function validate_user($value) {
+function validate_players($value) {
     $error = array();
     $valido = true;
     $filtro = array(
@@ -17,7 +17,11 @@ function validate_user($value) {
         ),
         'height' => array(
             'filter' => FILTER_VALIDATE_REGEXP,
-            'options' => array('regexp' => '/^-?[0-9]+([,\.][0-9]*)?$/')
+            'options' => array('regexp' => '/(^[0-9]+)\,([0-9]+)([ ][a-z])$/')
+        ),
+        'weight' => array(
+            'filter' => FILTER_VALIDATE_REGEXP,
+            'options' => array('regexp' => '/(^[0-9]+)\,([0-9]+)([ ][a-z])$/')
         ),
         'user' => array(
             'filter' => FILTER_VALIDATE_REGEXP,
@@ -37,14 +41,14 @@ function validate_user($value) {
     $resultado = filter_var_array($value, $filtro);
     //no filter
     $resultado['team'] = $value['team'];
-    $resultado['hobbies'] = $value['hobbies'];
+    $resultado['position'] = $value['position'];
 
     if ($resultado['birth_date']) {
-        //validate to user's over 16
+        //validate to players's over 16
         $dates = validateAge($resultado['birth_date']);
 
         if (!$dates) {
-            $error['birth_date'] = 'User must have more than 16 years';
+            $error['birth_date'] = 'Player must have more than 16 years';
             $valido = false;
         }
     }
@@ -54,10 +58,15 @@ function validate_user($value) {
         $valido = false;
     }
 
-    if (count($resultado['hobbies']) <= 1) {
-        $error['hobbies'] = "Select 2 or more.";
+    if (count($resultado['position']) != 1) {
+        $error['position'] = "Select only one option position.";
         $valido =  false;
     }
+
+    /*if (count($resultado['position']) <= 1) {
+        $error['position'] = "Select 2 or more positions.";
+        $valido =  false;
+    }*/
 
     if ($resultado != null && $resultado) {
 
@@ -84,7 +93,12 @@ function validate_user($value) {
         }
 
         if (!$resultado['height']) {
-            $error['height'] = "Height don't have symbols.";
+            $error['height'] = "Height don't have symbols. php";
+            $valido = false;
+        }
+
+        if (!$resultado['weight']) {
+            $error['weight'] = "Weight don't have symbols. php";
             $valido = false;
         }
 

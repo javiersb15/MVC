@@ -1,8 +1,8 @@
-function load_users() {
-    var jqxhr = $.get("/servidor/project/modules/users/controller/controller_users.class.php?load=true", function (data) {
+function load_players() {
+    var jqxhr = $.get("/servidor/project/modules/players/controller/controller_players.class.php?load=true", function (data) {
         var json = JSON.parse(data);
         console.log(json);
-        pintar_user(json);
+        pintar_players(json);
         //alert( "success" );
     }).done(function () {
         //alert( "second success" );
@@ -17,13 +17,13 @@ function load_users() {
 }
 
 $(document).ready(function () {
-    load_users();
+    load_players();
 });
 
-function pintar_user(data) {
-    //alert(data.user.avatar);
+function pintar_players(data) {
+    //alert(data.players.avatar);
     var content = document.getElementById("content");
-    var div_user = document.createElement("div");
+    var div_player = document.createElement("div");
     var parrafo = document.createElement("p");
 
     var msje = document.createElement("div");
@@ -32,45 +32,49 @@ function pintar_user(data) {
 
     var name = document.createElement("div");
     name.innerHTML = "name = ";
-    name.innerHTML += data.user.name;
+    name.innerHTML += data.player.name;
 
     var last_name = document.createElement("div");
     last_name.innerHTML = "last_name = ";
-    last_name.innerHTML += data.user.last_name;
+    last_name.innerHTML += data.player.last_name;
 
     var date_birthday = document.createElement("div");
     date_birthday.innerHTML = "date_birthday = ";
-    date_birthday.innerHTML += data.user.birth_date;
+    date_birthday.innerHTML += data.player.birth_date;
 
     var height = document.createElement("div");
     height.innerHTML = "height = ";
-    height.innerHTML += data.user.height;
+    height.innerHTML += data.player.height;
+
+    var weight = document.createElement("div");
+    weight.innerHTML = "weight = ";
+    weight.innerHTML += data.player.weight;
 
     var user = document.createElement("div");
     user.innerHTML = "user = ";
-    user.innerHTML += data.user.user;
+    user.innerHTML += data.player.user;
 
     var pass = document.createElement("div");
     pass.innerHTML = "pass = ";
-    pass.innerHTML += data.user.pass;
+    pass.innerHTML += data.player.pass;
 
     var email = document.createElement("div");
     email.innerHTML = "email = ";
-    email.innerHTML += data.user.email;
+    email.innerHTML += data.player.email;
 
     var team = document.createElement("div");
     team.innerHTML = "team = ";
-    team.innerHTML += data.user.team;
+    team.innerHTML += data.player.team;
 
-    var hobbies = document.createElement("div");
-    hobbies.innerHTML = "interests = ";
-    for(var i =0;i < data.user.hobbies.length;i++){
-    hobbies.innerHTML += " - "+data.user.hobbies[i];
+    var position = document.createElement("div");
+    position.innerHTML = "position = ";
+    for(var i =0;i < data.player.position.length;i++){
+    position.innerHTML += " - "+data.player.position[i];
     }
 
     //arreglar ruta IMATGE!!!!!
 
-    var cad = data.user.avatar;
+    var cad = data.player.avatar;
     //console.log(cad);
     //var cad = cad.toLowerCase();
     var img = document.createElement("div");
@@ -78,17 +82,18 @@ function pintar_user(data) {
     img.innerHTML = html;
     //alert(html);
 
-    div_user.appendChild(parrafo);
+    div_player.appendChild(parrafo);
     parrafo.appendChild(msje);
     parrafo.appendChild(name);
     parrafo.appendChild(last_name);
     parrafo.appendChild(date_birthday);
     parrafo.appendChild(height);
+    parrafo.appendChild(weight);
     parrafo.appendChild(team);
     parrafo.appendChild(user);
     parrafo.appendChild(pass);
     parrafo.appendChild(email);
-    parrafo.appendChild(hobbies);
-    content.appendChild(div_user);
+    parrafo.appendChild(position);
+    content.appendChild(div_player);
     content.appendChild(img);
 }

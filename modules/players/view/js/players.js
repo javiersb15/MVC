@@ -55,6 +55,19 @@ jQuery.fn.fill_or_clean = function () {
                 $("#height").val( "Introduce height");
             }
         });
+        if ($("#weight").val() == "") {
+            $("#weight").val( "Introduce weight");
+            $("#weight").focus(function () {
+                if ($("#weight").val() == "Introduce weight") {
+                    $("#weight").val( "");
+                }
+            });
+        }
+        $("#weight").blur(function () {
+            if ($("#weight").val() == "") {
+                $("#weight").val( "Introduce weight");
+            }
+        });
         if ($("#user").val() == "") {
             $("#user").val( "Introduce user");
             $("#user").focus(function () {
@@ -110,20 +123,21 @@ $(document).ready(function () {
         changeYear: true,
         yearRange: '-110:-16'
     });
-    //Valida users /////////////////////////
-    $('#submit_user').click(function () {
-        validate_user();
+    //Valida players /////////////////////////
+    $('#submit_players').click(function () {
+        validate_players();
     });
 
     //Control de seguridad para evitar que al volver atrás de la pantalla results a create, no nos imprima los datos
-    $.get("/servidor/project/modules/users/controller/controller_users.class.php?load_data=true",
+    $.get("/servidor/project/modules/players/controller/controller_players.class.php?load_data=true",
             function (response) {
-                //alert(response.user);
-                if (response.user === "") {
+                //alert(response.players);
+                if (response.players === "") {
                     $("#name").val('');
                     $("#last_name").val('');
                     $("#birth_date").val('');
                     $("#height").val('');
+                    $("#weight").val('');
                     $("#user").val('');
                     $("#pass").val('');
                     $("#email").val('');
@@ -137,19 +151,20 @@ $(document).ready(function () {
                     //siempre que creemos un plugin debemos llamarlo, sino no funcionará
     $(this).fill_or_clean();
                 } else {
-                    $("#name").val( response.user.name);
-                    $("#last_name").val( response.user.last_name);
-                    $("#birth_date").val( response.user.birth_date);
-                    $("#height").val( response.user.height);
-                    $("#user").val( response.user.user);
-                    $("#pass").val( response.user.pass);
-                    $("#email").val( response.user.email);
-                    $("#team").val( response.user.team);
-                    var hobbies = response.user.hobbies;
+                    $("#name").val( response.players.name);
+                    $("#last_name").val( response.players.last_name);
+                    $("#birth_date").val( response.players.birth_date);
+                    $("#height").val( response.players.height);
+                    $("#weight").val( response.players.weight);
+                    $("#user").val( response.players.user);
+                    $("#pass").val( response.players.pass);
+                    $("#email").val( response.players.email);
+                    $("#team").val( response.players.team);
+                    var position = response.players.hobbies;
                     var inputElements = document.getElementsByClassName('messageCheckbox');
-                    for (var i = 0; i < hobbies.length; i++) {
+                    for (var i = 0; i < position.length; i++) {
                         for (var j = 0; j < inputElements.length; j++) {
-                            if(interests[i] ===inputElements[j] )
+                            if(position[i] ===inputElements[j] )
                                 inputElements[j].checked = true;
                         }
                     }
@@ -158,7 +173,7 @@ $(document).ready(function () {
 
     //Dropzone function //////////////////////////////////
     $("#dropzone").dropzone({
-        url: "/servidor/project/modules/users/controller/controller_users.class.php?upload=true",
+        url: "/servidor/project/modules/players/controller/controller_players.class.php?upload=true",
         addRemoveLinks: true,
         maxFileSize: 1000,
         dictResponseError: "Ha ocurrido un error en el server",
@@ -185,7 +200,7 @@ $(document).ready(function () {
             var name = file.name;
             $.ajax({
                 type: "POST",
-                url: "/servidor/project/modules/users/controller/controller_users.class.php?delete=true",
+                url: "/servidor/project/modules/players/controller/controller_players.class.php?delete=true",
                 data: "filename=" + name,
                 success: function (data) {
                     $("#progress").hide();
@@ -219,8 +234,9 @@ $(document).ready(function () {
     var email_reg = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
     var date_reg = /^(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d$/;
     var height_reg = /^[0-9]+([,][0-9]+)?$/;
+    var weight_reg = /^[0-9]+([,][0-9]+)?$/;
     var pass_reg = /^[0-9a-zA-Z]{6,32}$/;
-    var string_reg = /^[A-Za-z]{2,30}$/;
+    var string_reg = /^([A-Za-z]{2,30})[ ]([A-Za-z]{2,30})$/;
     var usr_reg = /^[0-9a-zA-Z]{2,20}$/;
 
     //realizamos funciones para que sea más práctico nuestro formulario
@@ -259,6 +275,13 @@ $(document).ready(function () {
         }
     });
 
+    $("#weight").keyup(function () {
+        if ($(this).val() != "" && weight_reg.test($(this).val())) {
+            $(".error").fadeOut();
+            return false;
+        }
+    });
+
     $("#email").keyup(function () {
         if ($(this).val() != "" && email_reg.test($(this).val())) {
             $(".error").fadeOut();
@@ -267,23 +290,24 @@ $(document).ready(function () {
     });
 });
 
-function validate_user() {
+function validate_players() {
     var result = true;
 
     var name = document.getElementById('name').value;
     var last_name = document.getElementById('last_name').value;
     var birth_date = document.getElementById('birth_date').value;
     var height = document.getElementById('height').value;
+    var weight = document.getElementById('weight').value;
     var team = document.getElementById('team').value;
     var user = document.getElementById('user').value;
     var pass = document.getElementById('pass').value;
     var email = document.getElementById('email').value;
-    var hobbies = [];
+    var position = [];
     var inputElements = document.getElementsByClassName('messageCheckbox');
     var j = 0;
     for (var i = 0; i < inputElements.length; i++) {
         if (inputElements[i].checked) {
-            hobbies[j] = inputElements[i].value;
+            position[j] = inputElements[i].value;
             j++;
         }
     }
@@ -291,7 +315,8 @@ function validate_user() {
     //Utilizamos las expresiones regulares para la validación de errores JS
     var email_reg = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
     var date_reg = /^(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d$/;
-    var height_reg = /^[0-9]+([,][0-9]+)?$/;
+    var height_reg = /^[0-9]+([,][0-9]+)?([ ][a-z])$/;
+    var weight_reg = /^[0-9]+([,][0-9]+)?([ ][a-z])$/;
     var pass_reg = /^[0-9a-zA-Z]{6,32}$/;
     var string_reg = /^[A-Za-z]{2,30}$/;
     var usr_reg = /^[0-9a-zA-Z]{2,20}$/;
@@ -333,7 +358,17 @@ function validate_user() {
         result = false;
         return false;
     } else if (!height_reg.test($("#height").val())) {
-        $("#height").focus().after("<span class='error'>Height don't have  symbols.</span>");
+        $("#height").focus().after("<span class='error'>Height don't have  symbols js.</span>");
+        result = false;
+        return false;
+    }
+
+    if ($("#weight").val() == "" || $("#weight").val() == "Introduce weight") {
+        $("#weight").focus().after("<span class='error'>Introduce weight</span>");
+        result = false;
+        return false;
+    } else if (!height_reg.test($("#weight").val())) {
+        $("#weight").focus().after("<span class='error'>Weight don't have  symbols js.</span>");
         result = false;
         return false;
     }
@@ -371,12 +406,12 @@ function validate_user() {
     //Si ha ido todo bien, se envian los datos al servidor
 
     if (result) {
-        var data = {"name": name, "last_name": last_name, "birth_date": birth_date, "height": height, "team": team, "user": user, "pass": pass,
-            "email": email, "hobbies": hobbies};
+        var data = {"name": name, "last_name": last_name, "birth_date": birth_date, "height": height, "weight": weight, "team": team, "user": user, "pass": pass,
+            "email": email, "position": position};
 
-        var data_users_JSON = JSON.stringify(data);
+        var data_players_JSON = JSON.stringify(data);
 
-    $.post('/servidor/project/modules/users/controller/controller_users.class.php', {alta_users_json: data_users_JSON},
+    $.post('/servidor/project/modules/players/controller/controller_players.class.php', {alta_players_json: data_players_JSON},
             function (response) {
                 console.log(typeof(response));
                 if (response.success) {
@@ -417,6 +452,9 @@ function validate_user() {
                             if (xhr.responseJSON.error.height !== undefined && xhr.responseJSON.error.height !== null) {
                                 $("#height").focus().after("<span class='error'>" + xhr.responseJSON.error.height + "</span>");
                             }
+                            if (xhr.responseJSON.error.weight !== undefined && xhr.responseJSON.error.weight !== null) {
+                                $("#weight").focus().after("<span class='error'>" + xhr.responseJSON.error.weight + "</span>");
+                            }
                             if (xhr.responseJSON.error.user !== undefined && xhr.responseJSON.error.user !== null) {
                                 $("#user").focus().after("<span class='error'>" + xhr.responseJSON.error.user + "</span>");
                             }
@@ -429,8 +467,8 @@ function validate_user() {
                             if (xhr.responseJSON.error.team !== undefined && xhr.responseJSON.error.team !== null) {
                                 $("#team").focus().after("<span class='error'>" + xhr.responseJSON.error.team + "</span>");
                             }
-                            if (xhr.responseJSON.error.hobbies !== undefined && xhr.responseJSON.error.hobbies !== null) {
-                                $("#hobbies").focus().after("<span class='error'>" + xhr.responseJSON.error.hobbies + "</span>");
+                            if (xhr.responseJSON.error.position !== undefined && xhr.responseJSON.error.position !== null) {
+                                $("#position").focus().after("<span class='error'>" + xhr.responseJSON.error.position + "</span>");
                             }
                             if (xhr.responseJSON.error_avatar !== undefined && xhr.responseJSON.error_avatar !== null) {
                                 $("#dropzone").focus().after("<span class='error'>" + xhr.responseJSON.error_avatar + "</span>");
@@ -450,70 +488,4 @@ function validate_user() {
                     });
 
 }
-
-    /*if (result) {
-        var data = {"name": name, "last_name": last_name, "birth_date": birth_date, "address": address, "en_lvl": en_lvl, "user": user, "pass": pass,
-            "email": email, "interests": interests};
-
-        var data_users_JSON = JSON.stringify(data);
-
-        $.post('modules/users/controller/controller_users.class.php',
-                {alta_users_json: data_users_JSON},
-        function (response) {
-            if (response.success) {
-                window.location.href = response.redirect;
-            }
-            //alert(response);  //para debuguear
-            //}); //para debuguear
-        //}, "json").fail(function (xhr) {
-
-        }, "json").fail(function(xhr, status, error) {
-            console.log(xhr.responseText);
-            console.log(xhr.responseJSON);
-
-            if (xhr.responseJSON.error.name)
-                $("#name").focus().after("<span  class='error1'>" + xhr.responseJSON.error.name + "</span>");
-
-            if (xhr.responseJSON.error.last_name)
-                $("#last_name").focus().after("<span  class='error1'>" + xhr.responseJSON.error.last_name + "</span>");
-
-            if (xhr.responseJSON.error.birth_date)
-                $("#birth_date").focus().after("<span  class='error1'>" + xhr.responseJSON.error.birth_date + "</span>");
-
-            if (xhr.responseJSON.error.address)
-                $("#address").focus().after("<span  class='error1'>" + xhr.responseJSON.error.address + "</span>");
-
-            if (xhr.responseJSON.error.user)
-                $("#user").focus().after("<span  class='error1'>" + xhr.responseJSON.error.user + "</span>");
-
-            if (xhr.responseJSON.error.pass)
-                $("#pass").focus().after("<span  class='error1'>" + xhr.responseJSON.error.pass + "</span>");
-
-            if (xhr.responseJSON.error.email)
-                $("#email").focus().after("<span  class='error1'>" + xhr.responseJSON.error.email + "</span>");
-
-            if (xhr.responseJSON.error.en_lvl)
-                $("#en_lvl").focus().after("<span  class='error1'>" + xhr.responseJSON.error.en_lvl + "</span>");
-
-            if (xhr.responseJSON.error.interests)
-                $("#e_interests").focus().after("<span  class='error1'>" + xhr.responseJSON.error.interests + "</span>");
-
-            if (xhr.responseJSON.error_avatar)
-                $("#dropzone").focus().after("<span  class='error1'>" + xhr.responseJSON.error_avatar + "</span>");
-
-            if (xhr.responseJSON.success1) {
-                if (xhr.responseJSON.img_avatar !== "/media/default-avatar.png") {
-                    //$("#progress").show();
-                    //$("#bar").width('100%');
-                    //$("#percent").html('100%');
-                    //$('.msg').text('').removeClass('msg_error');
-                    //$('.msg').text('Success Upload image!!').addClass('msg_ok').animate({ 'right' : '300px' }, 300);
-                }
-            } else {
-                $("#progress").hide();
-                $('.msg').text('').removeClass('msg_ok');
-                $('.msg').text('Error Upload image!!').addClass('msg_error').animate({'right': '300px'}, 300);
-            }
-        });
-    }*/
 }

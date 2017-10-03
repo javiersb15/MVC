@@ -1,7 +1,7 @@
 <?php
 session_start();
 //include  with absolute route
-include ($_SERVER['DOCUMENT_ROOT'] . "/servidor/project/modules/users/utils/functions_user.inc.php");
+include ($_SERVER['DOCUMENT_ROOT'] . "/servidor/project/modules/players/utils/functions_players.inc.php");
 include ($_SERVER['DOCUMENT_ROOT'] . "/servidor/project/utils/upload.php");
 
 //////////////////////////////////////////////////////////////// upload
@@ -11,15 +11,15 @@ if ((isset($_GET["upload"])) && ($_GET["upload"] == true)) {
     //echo debug($_SESSION['result_avatar']); //se mostraría en alert(response); de dropzone.js
 }
 
-//////////////////////////////////////////////////////////////// alta_users_json
-if ((isset($_POST['alta_users_json']))) {
-    alta_users();
+//////////////////////////////////////////////////////////////// alta_players_json
+if ((isset($_POST['alta_players_json']))) {
+    alta_players();
 }
 
-function alta_users() {
+function alta_players() {
     $jsondata = array();
-    $usersJSON = json_decode($_POST["alta_users_json"], true);
-    $result = validate_user($usersJSON);
+    $playersJSON = json_decode($_POST["alta_players_json"], true);
+    $result = validate_players($playersJSON);
 
     if (empty($_SESSION['result_avatar'])) {
         $_SESSION['result_avatar'] = array('resultado' => true, 'error' => "", 'datos' => 'project/media/default-avatar.png');
@@ -32,20 +32,21 @@ function alta_users() {
             'last_name' => ucfirst($result['datos']['last_name']),
             'birth_date' => $result['datos']['birth_date'],
             'height' => $result['datos']['height'],
+            'weight' => $result['datos']['weight'],
             'user' => $result['datos']['user'],
             'pass' => $result['datos']['pass'],
             'email' => $result['datos']['email'],
             'team' => strtoupper($result['datos']['team']),
-            'hobbies' => $result['datos']['hobbies'],
+            'position' => $result['datos']['position'],
             'avatar' => $result_avatar['datos']
         );
 
-        $mensaje = "User has been successfully registered";
+        $mensaje = "Players has been successfully registered";
 
         //redirigir a otra p�gina con los datos de $arrArgument y $mensaje
-        $_SESSION['user'] = $arrArgument;
+        $_SESSION['player'] = $arrArgument;
         $_SESSION['msje'] = $mensaje;
-        $callback = "index.php?module=users&view=results_users";
+        $callback = "index.php?module=players&view=results_players";
 
         $jsondata["success"] = true;
         $jsondata["redirect"] = $callback;
@@ -83,9 +84,9 @@ if (isset($_GET["delete"]) && $_GET["delete"] == true) {
 //////////////////////////////////////////////////////////////// load
 if (isset($_GET["load"]) && $_GET["load"] == true) {
     $jsondata = array();
-    if (isset($_SESSION['user'])) {
-        //echo debug($_SESSION['user']);
-        $jsondata["user"] = $_SESSION['user'];
+    if (isset($_SESSION['player'])) {
+        //echo debug($_SESSION['player']);
+        $jsondata["player"] = $_SESSION['player'];
     }
     if (isset($_SESSION['msje'])) {
         //echo $_SESSION['msje'];
@@ -97,7 +98,7 @@ if (isset($_GET["load"]) && $_GET["load"] == true) {
 }
 
 function close_session() {
-    unset($_SESSION['user']);
+    unset($_SESSION['player']);
     unset($_SESSION['msje']);
     $_SESSION = array(); // Destruye todas las variables de la sesión
     session_destroy(); // Destruye la sesión
@@ -106,12 +107,12 @@ function close_session() {
 /////////////////////////////////////////////////// load_data
 if ((isset($_GET["load_data"])) && ($_GET["load_data"] == true)) {
     $jsondata = array();
-    if (isset($_SESSION['user'])) {
-        $jsondata["user"] = $_SESSION['user'];
+    if (isset($_SESSION['player'])) {
+        $jsondata["player"] = $_SESSION['player'];
         echo json_encode($jsondata);
         exit;
     } else {
-        $jsondata["user"] = "";
+        $jsondata["player"] = "";
         echo json_encode($jsondata);
         exit;
     }
