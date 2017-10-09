@@ -142,6 +142,9 @@ $(document).ready(function () {
                     $("#pass").val('');
                     $("#email").val('');
                     $("#team").val('Select team');
+                    $('#country').val('Select country');
+                    $('#province').val('Select province');
+                    $('#city').val('Select city');
                     var inputElements = document.getElementsByClassName('messageCheckbox');
                     for (var i = 0; i < inputElements.length; i++) {
                         if (inputElements[i].checked) {
@@ -160,6 +163,9 @@ $(document).ready(function () {
                     $("#pass").val( response.players.pass);
                     $("#email").val( response.players.email);
                     $("#team").val( response.players.team);
+                    $('#country').val(response.players.country);
+                    $('#province').val(response.players.province);
+                    $('#city').val(response.players.city);
                     var position = response.players.hobbies;
                     var inputElements = document.getElementsByClassName('messageCheckbox');
                     for (var i = 0; i < position.length; i++) {
@@ -290,6 +296,42 @@ $(document).ready(function () {
     });
 });
 
+//Dependent combos //////////////////////////////////
+load_countries_v1();
+
+$("#province").empty();
+$("#province").append('<option value="" selected="selected">Select province</option>');
+$("#province").prop('disabled', true);
+$("#city").empty();
+$("#city").append('<option value="" selected="selected">Select city</option>');
+$("#city").prop('disabled', true);
+
+$("#country").change(function() {
+var country = $(this).val();
+var province = $("#province");
+var city = $("#city");
+
+if(country !== 'ES'){
+       province.prop('disabled', true);
+       city.prop('disabled', true);
+       $("#province").empty();
+     $("#city").empty();
+}else{
+       province.prop('disabled', false);
+       city.prop('disabled', false);
+       load_provinces_v1();
+}//fi else
+});
+
+$("#province").change(function() {
+var prov = $(this).val();
+if(prov > 0){
+  load_cities_v1(prov);
+}else{
+  $("#city").prop('disabled', false);
+}
+});
+
 function validate_players() {
     var result = true;
 
@@ -299,6 +341,7 @@ function validate_players() {
     var height = document.getElementById('height').value;
     var weight = document.getElementById('weight').value;
     var team = document.getElementById('team').value;
+    var province = document.getElementById('province').value;
     var user = document.getElementById('user').value;
     var pass = document.getElementById('pass').value;
     var email = document.getElementById('email').value;
@@ -403,10 +446,33 @@ function validate_players() {
         return false;
     }
 
-    //Si ha ido todo bien, se envian los datos al servidor
+    if ($("#province").val() === "" || $("#province").val() === "Select province") {
+        $("#province").focus().after("<span class='error'>Select one province</span>");
+        return false;
+    }
+
 
     if (result) {
-        var data = {"name": name, "last_name": last_name, "birth_date": birth_date, "height": height, "weight": weight, "team": team, "user": user, "pass": pass,
+
+      if (province === null) {
+          province = 'default_province';
+      }else if (province.length === 0) {
+          province = 'default_province';
+      }else if (province === 'Select province') {
+          return 'default_province';
+      }
+
+      if (city === null) {
+          city = 'default_city';
+      }else if (city.length === 0) {
+          city = 'default_city';
+      }else if (city === 'Select city') {
+          return 'default_city';
+      }
+
+      //Si ha ido todo bien, se envian los datos al servidor
+
+        var data = {"name": name, "last_name": last_name, "birth_date": birth_date, "height": height, "weight": weight, "team": team, "country": country, "province": province, "city": city, "user": user, "pass": pass,
             "email": email, "position": position};
 
         var data_players_JSON = JSON.stringify(data);
@@ -467,8 +533,17 @@ function validate_players() {
                             if (xhr.responseJSON.error.team !== undefined && xhr.responseJSON.error.team !== null) {
                                 $("#team").focus().after("<span class='error'>" + xhr.responseJSON.error.team + "</span>");
                             }
-                            if (xhr.responseJSON.error.position !== undefined && xhr.responseJSON.error.position !== null) {
-                                $("#position").focus().after("<span class='error'>" + xhr.responseJSON.error.position + "</span>");
+                            if (xhr.responseJSON.error.country !== undefined && xhr.responseJSON.error.country !== null) {
+                                $("#error_country").focus().after("<span class='error'>" + xhr.responseJSON.error.country + "</span>");
+                            }
+                            if (xhr.responseJSON.error.province !== undefined && xhr.responseJSON.error.province !== null) {
+                                $("#error_province").focus().after("<span class='error'>" + xhr.responseJSON.error.province + "</span>");
+                            }
+                            if (xhr.responseJSON.error.province !== undefined && xhr.responseJSON.error.province !== null) {
+                                $("#error_province").focus().after("<span class='error'>" + xhr.responseJSON.error.province + "</span>");
+                            }
+                            if (xhr.responseJSON.error.city !== undefined && xhr.responseJSON.error.city !== null) {
+                                $("#city").focus().after("<span class='error'>" + xhr.responseJSON.error.city + "</span>");
                             }
                             if (xhr.responseJSON.error_avatar !== undefined && xhr.responseJSON.error_avatar !== null) {
                                 $("#dropzone").focus().after("<span class='error'>" + xhr.responseJSON.error_avatar + "</span>");

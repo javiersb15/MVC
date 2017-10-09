@@ -66,6 +66,18 @@ function pintar_players(data) {
     team.innerHTML = "team = ";
     team.innerHTML += data.player.team;
 
+    var country = document.createElement("div");
+    country.innerHTML = "country = ";
+    country.innerHTML += data.player.country;
+
+    var province = document.createElement("div");
+    province.innerHTML = "province = ";
+    province.innerHTML += data.player.province;
+
+    var city = document.createElement("div");
+    city.innerHTML = "city = ";
+    city.innerHTML += data.player.city;
+
     var position = document.createElement("div");
     position.innerHTML = "position = ";
     for(var i =0;i < data.player.position.length;i++){
@@ -90,6 +102,9 @@ function pintar_players(data) {
     parrafo.appendChild(height);
     parrafo.appendChild(weight);
     parrafo.appendChild(team);
+    parrafo.appendChild(country);
+    parrafo.appendChild(province);
+    parrafo.appendChild(city);
     parrafo.appendChild(user);
     parrafo.appendChild(pass);
     parrafo.appendChild(email);

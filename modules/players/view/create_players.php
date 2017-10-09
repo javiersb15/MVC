@@ -37,36 +37,52 @@
                     </div>
                     <br />
                     <div class="form-group">
-                        <label>Height*</label><br />
+                        <label>Height *</label><br />
                         <input id="height" type="text" name="height" placeholder="Height" required="required" value="" class="form-control">
                         <div id="e_height"></div>
                     </div>
                     <br />
                     <div class="form-group">
-                        <label>Weight*</label><br />
+                        <label>Weight *</label><br />
                         <input id="weight" type="text" name="weight" placeholder="Weight" required="required" value="" class="form-control">
                         <div id="e_weight"></div>
                     </div>
                     <br />
                     <div class="form-group">
-                        <label>Select team</label><br />
+                        <label>Select team *</label><br />
                         <select name="team" id="team">
                             <option value ="Select team" selected>Select team</option>
-                            <option value="Valencia">Valencia</option>
-                            <option value="Barcelona">Barcelona</option>
-                            <option value="Real Madrid">Real Madrid</option>
-                            <option value="Atletico Madrid">Atletico Madrid</option>
-                            <option value="Sevilla">Sevilla</option>
                         </select>
                         <div id="e_sel_team"></div>
                     </div>
 
                 </div>
                 <div class="col-sm-5">
-                    <div class="form-group">
-                        <label>User *</label>
-                        <input type="text" id="user" name="user" placeholder="user" class="form-control" value="" required="required" >
-                        <div id="e_user"></div>
+                  <div class="form-group">
+                      <label>Country *</label><br />
+                      <select name="country" id="country">
+                          <option value ="Select country" selected>Select country</option>
+                      </select>
+                  <div id="error_country"></div>
+                      <br />
+                  <div class="form-group">
+                      <label>Province *</label><br />
+                      <select name="province" id="province">
+                          <option value ="Select province" selected>Select province</option>
+                      </select>
+                  <div id="error_province"></div>
+                      <br />
+                  <div class="form-group">
+                      <label>City *</label><br />
+                      <select name="city" id="city">
+                          <option value ="Select city" selected>Select city</option>
+                      </select>
+                  <div id="error_city"></div>
+                      <br />
+                  <div class="form-group">
+                      <label>User *</label>
+                      <input type="text" id="user" name="user" placeholder="user" class="form-control" value="" required="required" >
+                  <div id="e_user"></div>
                     </div>
                     <br />
                     <div class="form-group">
@@ -82,7 +98,7 @@
                     </div>
                     <br />
                     <div class="form-group">
-                        <label>Position  *</label><br>
+                        <label>Position *</label><br>
 
                         Goalkeeper <input type="checkbox" name="position[]" class="messageCheckbox" value="Goalkeeper">
                         Defender  <input type="checkbox" name="position[]" class="messageCheckbox" value="Defender">
