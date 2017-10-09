@@ -41,8 +41,11 @@ class players_bll{
     public function obtain_cities_BLL($arrArgument){
       return $this->dao->obtain_cities_DAO($arrArgument);
     }
+<<<<<<< HEAD
 
     public function obtain_teams_BLL($arrArgument){
       return $this->dao->obtain_teams_DAO($arrArgument);
     }
+=======
+>>>>>>> origin/master
 }
