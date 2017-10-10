@@ -3,6 +3,7 @@ session_start();
 //include  with absolute route
 include ($_SERVER['DOCUMENT_ROOT'] . "/servidor/project/modules/players/utils/functions_players.inc.php");
 include ($_SERVER['DOCUMENT_ROOT'] . "/servidor/project/utils/upload.php");
+include ($_SERVER['DOCUMENT_ROOT'] . "/servidor/project/utils/common.inc.php");
 
 //////////////////////////////////////////////////////////////// upload
 if ((isset($_GET["upload"])) && ($_GET["upload"] == true)) {
@@ -37,6 +38,9 @@ function alta_players() {
             'pass' => $result['datos']['pass'],
             'email' => $result['datos']['email'],
             'team' => strtoupper($result['datos']['team']),
+            'country' => $result['data']['country'],
+            'province' => $result['data']['province'],
+            'city' => $result['data']['city'],
             'position' => $result['datos']['position'],
             'avatar' => $result_avatar['datos']
         );
@@ -117,3 +121,59 @@ if ((isset($_GET["load_data"])) && ($_GET["load_data"] == true)) {
         exit;
     }
 }
+
+/////////////////////////////////////////////////// load_country
+if(  (isset($_GET["load_country"])) && ($_GET["load_country"] == true)  ){
+		$json = array();
+
+    	$url = 'http://www.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/ListOfCountryNamesByName/JSON';
+		$path_model=$_SERVER['DOCUMENT_ROOT'] . '/servidor/project/modules/players/model/model/';
+		$json = loadModel($path_model, "players_model", "obtain_countries", $url);
+
+		if($json){
+			echo $json;
+			exit;
+		}else{
+			$json = "error";
+			echo $json;
+			exit;
+		}
+	}
+
+/////////////////////////////////////////////////// load_provinces
+if(  (isset($_GET["load_provinces"])) && ($_GET["load_provinces"] == true)  ){
+    	$jsondata = array();
+        $json = array();
+
+		$path_model=$_SERVER['DOCUMENT_ROOT'] . '/servidor/project/modules/players/model/model/';
+		$json = loadModel($path_model, "players_model", "obtain_provinces");
+
+		if($json){
+			$jsondata["provinces"] = $json;
+			echo json_encode($jsondata);
+			exit;
+		}else{
+			$jsondata["provinces"] = "error";
+			echo json_encode($jsondata);
+			exit;
+		}
+	}
+
+/////////////////////////////////////////////////// load_cities
+if(  isset($_POST['idPoblac']) ){
+	    $jsondata = array();
+        $json = array();
+
+		$path_model=$_SERVER['DOCUMENT_ROOT'] . '/servidor/project/modules/players/model/model/';
+		$json = loadModel($path_model, "players_model", "obtain_cities", $_POST['idPoblac']);
+
+		if($json){
+			$jsondata["cities"] = $json;
+			echo json_encode($jsondata);
+			exit;
+		}else{
+			$jsondata["cities"] = "error";
+			echo json_encode($jsondata);
+			exit;
+		}
+	}

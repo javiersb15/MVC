@@ -38,14 +38,17 @@ function validate_players($value) {
     );
 
 
-    $resultado = filter_var_array($value, $filtro);
+    $result = filter_var_array($value, $filtro);
     //no filter
-    $resultado['team'] = $value['team'];
-    $resultado['position'] = $value['position'];
+    $result['team'] = $value['team'];
+    $result['country'] = $value['country'];
+    $result['province'] = $value['province'];
+    $result['city'] = $value['city'];
+    $result['position'] = $value['position'];
 
-    if ($resultado['birth_date']) {
+    if ($result['birth_date']) {
         //validate to players's over 16
-        $dates = validateAge($resultado['birth_date']);
+        $dates = validateAge($result['birth_date']);
 
         if (!$dates) {
             $error['birth_date'] = 'Player must have more than 16 years';
@@ -53,62 +56,77 @@ function validate_players($value) {
         }
     }
 
-    if ($resultado['team'] === 'Select team') {
+    if ($result['team'] === 'Select team') {
         $error['team'] = "You haven't select team.";
         $valido = false;
     }
 
-    if (count($resultado['position']) != 1) {
+    if ($result['country']==='Select country'){
+            $error['country']="You need to choose a country";
+            $valid = false;
+        }
+
+    if ($result['province']==='Select province'){
+            $error['province']="You need to choose a province";
+            $valid = false;
+        }
+
+    if ($result['city']==='Select city'){
+            $error['city']="You need to choose a city";
+            $valid = false;
+        }
+
+    if (count($result['position']) != 1) {
         $error['position'] = "Select only one option position.";
         $valido =  false;
     }
 
-    /*if (count($resultado['position']) <= 1) {
+    /*if (count($result['position']) <= 1) {
         $error['position'] = "Select 2 or more positions.";
         $valido =  false;
     }*/
 
-    if ($resultado != null && $resultado) {
+    if ($result != null && $result) {
 
 
-        if (!$resultado['name']) {
+        if (!$result['name']) {
             $error['name'] = 'Name must be 2 to 30 letters';
             $valido = false;
         }
 
-        if (!$resultado['user']) {
+        if (!$result['user']) {
             $error['user'] = 'User must be 2 to 20 characters';
             $valido = false;
         }
 
-        if (!$resultado['email']) {
+        if (!$result['email']) {
             $error['email'] = 'error format email (example@example.com)';
             $valido = false;
         }
 
 
-        if (!$resultado['pass']) {
+        if (!$result['pass']) {
             $error['pass'] = 'Pass must be 6 to 32 characters';
             $valido = false;
         }
 
-        if (!$resultado['height']) {
+        if (!$result['height']) {
             $error['height'] = "Height don't have symbols. php";
             $valido = false;
         }
 
-        if (!$resultado['weight']) {
+        if (!$result['weight']) {
             $error['weight'] = "Weight don't have symbols. php";
             $valido = false;
         }
 
-        if (!$resultado['last_name']) {
+        if (!$result['last_name']) {
             $error['last_name'] = 'Last name must be 2 to 30 letters';
             $valido = false;
         }
 
-        if (!$resultado['birth_date']) {
-            if ($resultado['birth_date'] == "") {
+        if (!$result['birth_date']) {
+            if ($result['birth_date'] == "") {
                 $error['birth_date'] = "this camp can't empty";
                 $valido = false;
             } else {
@@ -121,7 +139,7 @@ function validate_players($value) {
         $valido = false;
     };
 
-    return $return = array('resultado' => $valido, 'error' => $error, 'datos' => $resultado);
+    return $return = array('result' => $valido, 'error' => $error, 'datos' => $result);
 }
 
 function valida_dates($start_days, $dayslight) {

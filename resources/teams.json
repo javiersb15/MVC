@@ -1,0 +1,82 @@
+[
+  {
+    "sISOCode": "Valencia",
+    "sName": "Valencia CF"
+  },
+  {
+    "sISOCode": "Barça",
+    "sName": "FC Barcelona"
+  },
+  {
+    "sISOCode": "Sevilla",
+    "sName": "Sevilla FC"
+  },
+  {
+    "sISOCode": "Atl. Madrid",
+    "sName": "Atlético de Madrid"
+  },
+  {
+    "sISOCode": "Real Madrid",
+    "sName": "Real Madrid"
+  },
+  {
+    "sISOCode": "Betis",
+    "sName": "Real Betis"
+  },
+  {
+    "sISOCode": "Leganés",
+    "sName": "CD Leganés"
+  },
+  {
+    "sISOCode": "Real Sociedad",
+    "sName": "Real Sociedad"
+  },
+  {
+    "sISOCode": "Villarreal",
+    "sName": "Villarreal CF"
+  },
+  {
+    "sISOCode": "Levante",
+    "sName": "Levante UD"
+  },
+  {
+    "sISOCode": "Celta",
+    "sName": "RC Celta"
+  },
+  {
+    "sISOCode": "Getafe",
+    "sName": "Getafe CF"
+  },
+  {
+    "sISOCode": "Ath. Bilbao",
+    "sName": "Athletic Club"
+  },
+  {
+    "sISOCode": "Espanyol",
+    "sName": "RCD Espanyol"
+  },
+  {
+    "sISOCode": "Deportivo Coruña",
+    "sName": "RC Deportivo"
+  },
+  {
+    "sISOCode": "Girona",
+    "sName": "Girona FC"
+  },
+  {
+    "sISOCode": "Las Palmas",
+    "sName": "UD Las Palmas"
+  },
+  {
+    "sISOCode": "Eibar",
+    "sName": "SD Eibar"
+  },
+  {
+    "sISOCode": "D. Alavés",
+    "sName": "D. Alavés"
+  },
+  {
+    "sISOCode": "Málaga",
+    "sName": "Málaga CF"
+  }
+]
