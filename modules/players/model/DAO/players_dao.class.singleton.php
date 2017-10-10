@@ -17,6 +17,7 @@ class playerDAO {
     }
 
     public function create_player_DAO($db, $arrArgument) {
+<<<<<<< HEAD
         $name = $arrArgument['name'];
         $last_name = $arrArgument['last_name'];
         $birth_date = $arrArgument['birth_date'];
@@ -54,6 +55,43 @@ class playerDAO {
                 . " '$birth_date', '$height', '$weight', '$user', "
                 . " '$pass', '$email', '$team', '$country', '$province',"
                 . " '$city', '$goalkeeper', '$defender', '$midfielder', '$forward', '$avatar')";
+=======
+        $prodname = $arrArgument['prodname'];
+        $prodref = $arrArgument['prodref'];
+        $prodprice = $arrArgument['prodprice'];
+        $date_reception = $arrArgument['date_reception'];
+        $date_expiration = $arrArgument['date_expiration'];
+        $category = $arrArgument['category'];
+        $packaging = $arrArgument['packaging'];
+        $country = $arrArgument['country'];
+        $province = $arrArgument['province'];
+        $city = $arrArgument['city'];
+        $proddesc = $arrArgument['proddesc'];
+        $prodpic = $arrArgument['prodpic'];
+
+        $cat1=0;
+        $cat2=0;
+        $cat3=0;
+        $cat4=0;
+
+        foreach ($category as $indice) {
+            if ($indice === 'cat1')
+                $cat1 = 1;
+            if ($indice === 'cat2')
+                $cat2 = 1;
+            if ($indice === 'cat3')
+                $cat3 = 1;
+            if ($indice === 'cat4')
+                $cat4 = 1;
+        }
+
+        $sql = "INSERT INTO products (prodname, prodref, prodprice, date_reception,"
+                . " date_expiration, cat1, cat2, cat3, cat4, packaging, country, province,"
+                . " city, proddesc, prodpic) VALUES ('$prodname', '$prodref',"
+                . " '$prodprice', '$date_reception', '$date_expiration', '$cat1', "
+                . " '$cat2', '$cat3', '$cat4', '$packaging', '$country', '$province',"
+                . " '$city', '$proddesc', '$prodpic')";
+>>>>>>> origin/master
 
         return $db->ejecutar($sql);
     }
@@ -79,7 +117,11 @@ class playerDAO {
           $json = array();
           $tmp = array();
 
+<<<<<<< HEAD
           $provincias = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].'/servidor/project/resources/provinciasypoblaciones.xml');
+=======
+          $provincias = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].'/1_Backend/6_dependent_dropdowns/resources/provinciasypoblaciones.xml');
+>>>>>>> origin/master
           $result = $provincias->xpath("/lista/provincia/nombre | /lista/provincia/@id");
           for ($i=0; $i<count($result); $i+=2) {
             $e=$i+1;
@@ -99,7 +141,11 @@ class playerDAO {
           $tmp = array();
 
           $filter = (string)$arrArgument;
+<<<<<<< HEAD
           $xml = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].'/servidor/project/resources/provinciasypoblaciones.xml');
+=======
+          $xml = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].'/1_Backend/6_dependent_dropdowns/resources/provinciasypoblaciones.xml');
+>>>>>>> origin/master
           $result = $xml->xpath("/lista/provincia[@id='$filter']/localidades");
 
           for ($i=0; $i<count($result[0]); $i++) {

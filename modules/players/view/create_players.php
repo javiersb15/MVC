@@ -99,6 +99,10 @@
                     <br />
                     <div class="form-group">
                         <label>Position *</label><br>
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
                         Goalkeeper <input type="checkbox" name="position[]" class="messageCheckbox" value="Goalkeeper">
                         Defender  <input type="checkbox" name="position[]" class="messageCheckbox" value="Defender">
                         Midfielder  <input type="checkbox" name="position[]" class="messageCheckbox" value="Midfielder">
